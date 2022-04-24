@@ -5,24 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Order extends Model
 {
     use HasFactory;
     
+    public function user() {
+    	return $this->belongsTo(User::class);
+    }
+    
     public function orderDetails() {
-    	return $this->belongsTo(OrderDetails::class);
+    	return $this->hasMany(OrderDetails::class);
     }
     
     public function order() {
     	return $this->belongsToMany(Order::class);
     }
-    
-    public function user() {
-    	return $this->belongsToMany(User::class);
-    }
 /*    
-    function getAll($orderBy, $orderType, $pagination) {
-    	$books = null;
+    public function getAll($orderBy, $orderType, $pagination) {
+    	$orders = null;
     	if(!isset($orderBy) || $orderBy == '') {
     		$orderBy = 'id';
     	}
@@ -32,21 +32,21 @@ class Book extends Model
     	if(!isset($pagination) || $pagination <= 0) {
     		$pagination = 10;
     	}
-    	$books = DB::table('books')->orderBy($orderBy, $orderType)->pagination($pagination);
+    	$books = DB::table('$orders')->orderBy($orderBy, $orderType)->pagination($pagination);
     	return $books;
     }
     
-    function getById($id) {
-    	$book = null;
+    public function getById($id) {
+    	$order = null;
     	if(!isset($id) || $id <= 0) {
-    		return $book;
+    		return $order;
     	}
-    	$book = DB::table('books')->find($id);
-    	return $book;
+    	$book = DB::table('$orders')->find($id);
+    	return $order;
     }
     
-    function getBy($column, $type, $value, $orderBy, $orderType, $pagination) {
-    	$books = null;
+    public function getBy($column, $type, $value, $orderBy, $orderType, $pagination) {
+    	$orders = null;
     	if(!isset($column) || $column == '') {
     		$column = 'code';
     	}
@@ -62,57 +62,60 @@ class Book extends Model
     	if(!isset($pagination) || $pagination <= 0) {
     		$pagination = 10;
     	}
-    	$books = DB::table('books')->where($column, $type, $value)->orderBy($orderBy, $orderType)->pagination($pagination);
-    	return $books;
+    	$orders = DB::table('$orders')->where($column, $type, $value)->orderBy($orderBy, $orderType)->pagination($pagination);
+    	return $orders;
     }
     
-    function addOne($book) {
-    	$id = DB::table('books')->insertGetId([
-    		'code' 		=> $book->code,
-    		'name' 		=> $book->name,
-    		'quantity' 	=> $book->quantity,
+    public function addOne($order) {
+    	$id = DB::table('$orders')->insertGetId([
+    		'code' 		=> $order->code,
+    		'start' 	=> $order->start,
+    		'end' 		=> $order->end,
+    		'user_id' 	=> $order->user_id,
+    		'book_id' 	=> $order->book_id,
     	]);
     	return $id;
     }
     
-    function addMultiple($books) {
+    public function addMultiple($books) {
     	foreach ($books as $book)
     	{
     		DB::table('books')->insert([
-    			'code' 		=> $book->code,
-    			'name' 		=> $book->name,
-    			'quantity' 	=> $book->quantity,
+    				'code' 		=> $book->code,
+    				'name' 		=> $book->name,
+    				'quantity' 	=> $book->quantity,
     		]);
     	}
     }
     
-    function eidtOne($book) {
+    public function eidtOne($book) {
     	$row = DB::table('books')->where('id', $book->id)->update([
-    		'code' 		=> $user->code,
-    		'name' 		=> $user->name,
-    		'quantity' 	=> $user->quantity,
-    		'status' 	=> $user->status,
-    	]);
-    	return $row;
-    }
-    
-    function eidtMultiple($books) {
-    	foreach ($books as $book) {
-    		DB::table('books')->where('id', $book->id)->update([
     			'code' 		=> $user->code,
     			'name' 		=> $user->name,
     			'quantity' 	=> $user->quantity,
     			'status' 	=> $user->status,
-    		]);
-    	}
+    	]);
+    	return $row;
     }
     
-    function deleteOne($id) {
+    public function eidtMultiple($books) {
+    	foreach ($books as $book) {
+    		DB::table('books')->where('id', $book->id)->update([
+    				'code' 		=> $user->code,
+    				'name' 		=> $user->name,
+    				'quantity' 	=> $user->quantity,
+    				'status' 	=> $user->status,
+    		]);
+    	}
+    	return $row;
+    }
+    
+    public function deleteOne($id) {
     	$row = DB::table('books')->where('id', $book->id)->delete();
     	return $row;
     }
     
-    function deleteMultiple($ids) {
+    public function deleteMultiple($ids) {
     	foreach ($ids as $id) {
     		DB::table('books')->where('id', $book->id)->delete();
     	}

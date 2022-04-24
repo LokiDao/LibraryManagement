@@ -21,6 +21,20 @@
         </style>
     </head>
     <body class="antialiased">
-        Home
+    	<div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
+            Edit User 
+        </div>
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
+            ID: {{$id}}
+        </div>
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
+            Email: {{$email}}
+        </div>
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
+            Name: {{$name}}
+        </div>
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
+            Role: {{($role == 0) ? 'Student' : 'Admin'}}
+        </div>
     </body>
 </html>
