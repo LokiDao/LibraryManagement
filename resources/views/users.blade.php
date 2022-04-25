@@ -47,13 +47,15 @@
             <div>
             List User 
 	        </div>
+	        <span class="help-block">@isset($msg) ? {{$msg}} : '' @endisset</span>
 	        <table class="center", border=1>
         	   <tr>
 	        	<th>ID</th>
 	        	<th>Email</th>
 	        	<th>Name</th>
 	        	<th>Role</th>
-	            <th><a href='/user/add' title='New' data-toggle='tooltip'><i class='fa fa-plus'>+</i></a></td>
+	        	<th>Status</th>
+	            <th><a href='/u' title='New' data-toggle='tooltip'><i class='fa fa-plus'>New</i></a></td>
 	            </tr>
 	        @foreach ($users as $user)
 	        <tr>
@@ -61,9 +63,10 @@
 	            <td>{{$user->email}}</td>
 	            <td>{{$user->name}}</td>
 	            <td>{{($user->role == 0) ? 'Student' : 'Admin'}}</td>
+	            <td>{{($user->status == 0) ? 'Active' : 'Inactive'}}</td>
 	            <td>
-	            	<a href='/user/1' title='Edit' data-toggle='tooltip'><i class='fa fa-edit'>...</i></a>
-	            	<a href='/user/1' title='Delete' data-toggle='tooltip'><i class='fa fa-trash'>-</i></a>
+	            	<a href='/u{{$user->id}}' title='Edit' data-toggle='tooltip'><i class='fa fa-edit'>Edit</i></a>
+	            	<a href='/us{{$user->id}}' title='Delete' data-toggle='tooltip'><i class='fa fa-trash'>Delete</i></a>
 	            </td>
 	        </tr>
 	        @endforeach

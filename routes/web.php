@@ -15,17 +15,25 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('bookorders');
+    return view('orders');
 });
 
 Route::get('/home', function () {
-	return view('bookorders');
+	return view('orders');
 });
 
 	Route::get('/login', function () {
 		return view('login');
 	});
 
-Route::get('/users', [UserController::class, 'showAll']);
+Route::get('/us', [UserController::class, 'showAll']);
 
-Route::get('/user/{id}', [UserController::class, 'show']);
+Route::get('/u', function () { return view('adduser'); });
+
+Route::post('/u', [UserController::class, 'add']);
+
+Route::get('/u{id}', [UserController::class, 'show']);
+
+Route::post('/u{id}', [UserController::class, 'edit']);
+
+Route::get('/us{id}', [UserController::class, 'delete']);

@@ -21,20 +21,80 @@
         </style>
     </head>
     <body class="antialiased">
-    	<div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
+        <div>
+            @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+		</div>
+    	<div>
             Edit User 
-        </div>
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
-            ID: {{$id}}
-        </div>
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
-            Email: {{$email}}
-        </div>
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
-            Name: {{$name}}
-        </div>
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8", align="center">
-            Role: {{($role == 0) ? 'Student' : 'Admin'}}
-        </div>
+	        </div>
+	        <span class="help-block">@isset($msg) ? {{$msg}} : '' @endisset</span>
+	        <form name="edit-user-form" method="post" action="/u{{$id}}">
+	        @csrf
+                       	<div class="form-group">
+                            <label>ID</label>
+                            <input name="id" class="form-control" required value="{{$id}}" disabled>
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input name="email" class="form-control" required value="{{$email}}">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input name="name" class="form-control" required value="{{$name}}">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input name="password" class="form-control" required value="{{$password}}">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            @if($role == '0')
+							<input type="radio" id="student" name="role" value="0" checked>
+							<label for="student">Student</label>
+							<input type="radio" id="admin" name="role" value="1">
+							<label for="admin">Admin</label>
+							@else
+							<input type="radio" id="student" name="role" value="0">
+							<label for="student">Student</label>
+							<input type="radio" id="admin" name="role" value="1" checked>
+							<label for="admin">Admin</label>
+							@endif
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            @if($status == '0')
+                            <input type="radio" id="active" name="status" value="0" checked>
+							<label for="active">Active</label>
+							<input type="radio" id="inactive" name="status" value="1">
+							<label for="inactive">Inactive</label>
+							@else
+							<input type="radio" id="active" name="status" value="0">
+							<label for="active">Active</label>
+							<input type="radio" id="inactive" name="status" value="1" checked>
+							<label for="inactive">Inactive</label>
+							@endif
+                            <span class="help-block"> </span>
+                        </div>
+                        <input type="submit" name="editbtn" class="btn btn-primary" value="Submit">
+                        <a href="/us" class="btn btn-default">Cancel</a>
+                        <a href="/us{{$id}}" class="btn btn-default">Delete</a>
+	        </form>
     </body>
 </html>
