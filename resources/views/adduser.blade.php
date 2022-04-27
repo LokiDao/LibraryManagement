@@ -44,10 +44,17 @@
                 </div>
             @endif
 		</div>
+		<div>
+            <a href='/os' title='Order Management' data-toggle='tooltip'><i class='fa fa-plus'>Order</i></a>
+            | 
+            <a href='/bs' title='Book Management' data-toggle='tooltip'><i class='fa fa-plus'>Book</i></a>
+            | 
+            <a href='/us' title='User Management' data-toggle='tooltip'><i class='fa fa-plus'>User</i></a>
+	        </div>
             <div>
             Add User 
 	        </div>
-	        <span class="help-block">@isset($msg) ? {{$msg}} : '' @endisset</span>
+	        <span class="help-block">@isset($msg) {{$msg}} @endisset</span>
 	        <form name="add-user-form" method="post" action="/u">
 	        @csrf
                         <div class="form-group">

@@ -21,6 +21,84 @@
         </style>
     </head>
     <body class="antialiased">
-        Home
+        <div>
+            @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+		</div>
+		<div>
+            <a href='/os' title='Order Management' data-toggle='tooltip'><i class='fa fa-plus'>Order</i></a>
+            | 
+            <a href='/bs' title='Book Management' data-toggle='tooltip'><i class='fa fa-plus'>Book</i></a>
+            | 
+            <a href='/us' title='User Management' data-toggle='tooltip'><i class='fa fa-plus'>User</i></a>
+	        </div>
+    	<div>
+            Edit Book 
+	        </div>
+	        <span class="help-block">@isset($msg) {{$msg}} @endisset</span>
+	        @isset($order)
+	        <form name="edit-order-form" method="post" action="/o{{$order->id}}">
+	        @csrf
+                       	<div class="form-group">
+                            <label>ID</label>
+                            <input name="id" class="form-control" required value="{{$order->id}}" disabled>
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Code</label>
+                            <input name="code" class="form-control" required value="{{$order->code}}">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>User</label>
+                            <input name="user" class="form-control" required value="{{$order->user}}">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Start</label>
+                            <input name="start" class="form-control" required value="{{$order->start}}">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>End</label>
+                            <input name="end" class="form-control" required value="{{$order->end}}">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Books</label>
+                            <input name="books" class="form-control" required value="{{$order->book}}">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            @if($order->status == '0')
+                            <input type="radio" id="active" name="status" value="0" checked>
+							<label for="active">Active</label>
+							<input type="radio" id="inactive" name="status" value="1">
+							<label for="inactive">Inactive</label>
+							@else
+							<input type="radio" id="active" name="status" value="0">
+							<label for="active">Active</label>
+							<input type="radio" id="inactive" name="status" value="1" checked>
+							<label for="inactive">Inactive</label>
+							@endif
+                            <span class="help-block"> </span>
+                        </div>
+                        <input type="submit" name="editbtn" class="btn btn-primary" value="Submit">
+                        <a href="/os" class="btn btn-default">Cancel</a>
+                        <a href="/os{{$order->id}}" class="btn btn-default">Delete</a>
+	        </form>
+	        @endisset
     </body>
 </html>

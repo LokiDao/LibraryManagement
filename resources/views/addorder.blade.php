@@ -52,44 +52,38 @@
             <a href='/us' title='User Management' data-toggle='tooltip'><i class='fa fa-plus'>User</i></a>
 	        </div>
             <div>
-            List User 
+            Add Book 
 	        </div>
-	        <form name="search-book-form" method="get" action="/bf">
-	        @csrf
-                            <input name="key" class="form-control" value="">
-                            <span class="help-block"> </span>
-                        <input type="submit" name="searchbtn" class="btn btn-primary" value="Search">
-	        </form>
-	        <br/>
-	        <div>
 	        <span class="help-block">@isset($msg) {{$msg}} @endisset</span>
-	        <table class="center", border=1>
-        	   <tr>
-	        	<th>ID</th>
-	        	<th>Code</th>
-	        	<th>Name</th>
-	        	<th>Status</th>
-	            <th><a href='/b' title='New' data-toggle='tooltip'><i class='fa fa-plus'>New</i></a></td>
-	            </tr>
-	        @isset($books)
-	        @foreach ($books as $book)
-	        <tr>
-	            <td>
-	            <a href='/b{{$book->id}}' title='Edit' data-toggle='tooltip'><i class='fa fa-edit'>{{$book->id}}</i></a>
-	            </td>
-	            <td>
-	            <a href='/b{{$book->id}}' title='Edit' data-toggle='tooltip'><i class='fa fa-edit'>{{$book->code}}</i></a>
-	            </td>
-	            <td>{{$book->name}}</td>
-	            <td>{{($book->status == 0) ? 'Active' : 'Inactive'}}</td>
-	            <td>
-	            	<a href='/b{{$book->id}}' title='Edit' data-toggle='tooltip'><i class='fa fa-edit'>Edit</i></a>
-	            	<a href='/bs{{$book->id}}' title='Delete' data-toggle='tooltip'><i class='fa fa-trash'>Delete</i></a>
-	            </td>
-	        </tr>
-	        @endforeach
-	        @endisset
-	        </table>
-	        </div>
+	        <form name="add-order-form" method="post" action="/o">
+	        @csrf
+                        <div class="form-group">
+                            <label>Code</label>
+                            <input name="code" class="form-control" required value="">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>User</label>
+                            <input name="user" class="form-control" required value="">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Start</label>
+                            <input name="start" class="form-control" required value="">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>End</label>
+                            <input name="end" class="form-control" required value="">
+                            <span class="help-block"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Books</label>
+                            <input name="books" class="form-control" required value="">
+                            <span class="help-block"> </span>
+                        </div>
+                        <input type="submit" name="addbtn" class="btn btn-primary" value="Submit">
+                        <a href="/os" class="btn btn-default">Cancel</a>
+	        </form>
     </body>
 </html>

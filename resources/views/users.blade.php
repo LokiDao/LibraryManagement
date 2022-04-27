@@ -44,10 +44,25 @@
                 </div>
             @endif
 		</div>
+		<div>
+            <a href='/os' title='Order Management' data-toggle='tooltip'><i class='fa fa-plus'>Order</i></a>
+            | 
+            <a href='/bs' title='Book Management' data-toggle='tooltip'><i class='fa fa-plus'>Book</i></a>
+            | 
+            <a href='/us' title='User Management' data-toggle='tooltip'><i class='fa fa-plus'>User</i></a>
+	        </div>
             <div>
             List User 
 	        </div>
-	        <span class="help-block">@isset($msg) ? {{$msg}} : '' @endisset</span>
+	        <form name="search-user-form" method="get" action="/uf">
+	        @csrf
+                            <input name="key" class="form-control" value="">
+                            <span class="help-block"> </span>
+                        <input type="submit" name="searchbtn" class="btn btn-primary" value="Search">
+	        </form>
+	        <br/>
+	        <div>
+	        <span class="help-block">@isset($msg) {{$msg}} @endisset</span>
 	        <table class="center", border=1>
         	   <tr>
 	        	<th>ID</th>
@@ -57,10 +72,15 @@
 	        	<th>Status</th>
 	            <th><a href='/u' title='New' data-toggle='tooltip'><i class='fa fa-plus'>New</i></a></td>
 	            </tr>
+	        @isset($users)
 	        @foreach ($users as $user)
 	        <tr>
-	            <td>{{$user->id}}</td>
-	            <td>{{$user->email}}</td>
+	            <td>
+	            <a href='/u{{$user->id}}' title='Edit' data-toggle='tooltip'><i class='fa fa-edit'>{{$user->id}}</i></a>
+	            </td>
+	            <td>
+	            <a href='/u{{$user->id}}' title='Edit' data-toggle='tooltip'><i class='fa fa-edit'>{{$user->email}}</i></a>
+	            </td>
 	            <td>{{$user->name}}</td>
 	            <td>{{($user->role == 0) ? 'Student' : 'Admin'}}</td>
 	            <td>{{($user->status == 0) ? 'Active' : 'Inactive'}}</td>
@@ -70,6 +90,8 @@
 	            </td>
 	        </tr>
 	        @endforeach
+	        @endisset
 	        </table>
+	        </div>
     </body>
 </html>

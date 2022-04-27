@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use DB;
 use Str;
 
-class OrderDetailsSeeder extends Seeder
+class BookOrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,7 +27,7 @@ class OrderDetailsSeeder extends Seeder
     				|| $order_id == 25
     				|| $order_id == 30
     				) {
-    			DB::table('order_details')->insert([
+    			DB::table('book_order')->insert([
     				'code' => Str::random(10),
     				'order_id' => $order_id,
     				'book_id' => $id,
@@ -35,7 +35,7 @@ class OrderDetailsSeeder extends Seeder
     			$id++;
     		}
 	    	for($book_id = 1; $book_id <= 50; $book_id++) {
-	    		DB::table('order_details')->insert([
+	    		DB::table('book_order')->insert([
 	    				'code' => Str::random(10),
 	    				'order_id' => $order_id,
 	    				'book_id' => $book_id,

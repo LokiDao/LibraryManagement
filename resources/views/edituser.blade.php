@@ -36,35 +36,43 @@
                 </div>
             @endif
 		</div>
+		<div>
+            <a href='/os' title='Order Management' data-toggle='tooltip'><i class='fa fa-plus'>Order</i></a>
+            | 
+            <a href='/bs' title='Book Management' data-toggle='tooltip'><i class='fa fa-plus'>Book</i></a>
+            | 
+            <a href='/us' title='User Management' data-toggle='tooltip'><i class='fa fa-plus'>User</i></a>
+	        </div>
     	<div>
             Edit User 
 	        </div>
-	        <span class="help-block">@isset($msg) ? {{$msg}} : '' @endisset</span>
-	        <form name="edit-user-form" method="post" action="/u{{$id}}">
+	        <span class="help-block">@isset($msg) {{$msg}} @endisset</span>
+	        @isset($user)
+	        <form name="edit-user-form" method="post" action="/u{{$user->id}}">
 	        @csrf
                        	<div class="form-group">
                             <label>ID</label>
-                            <input name="id" class="form-control" required value="{{$id}}" disabled>
+                            <input name="id" class="form-control" required value="{{$user->id}}" disabled>
                             <span class="help-block"> </span>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input name="email" class="form-control" required value="{{$email}}">
+                            <input name="email" class="form-control" required value="{{$user->email}}">
                             <span class="help-block"> </span>
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <input name="name" class="form-control" required value="{{$name}}">
+                            <input name="name" class="form-control" required value="{{$user->name}}">
                             <span class="help-block"> </span>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input name="password" class="form-control" required value="{{$password}}">
+                            <input name="password" class="form-control" required value="{{$user->password}}">
                             <span class="help-block"> </span>
                         </div>
                         <div class="form-group">
                             <label>Role</label>
-                            @if($role == '0')
+                            @if($user->role == '0')
 							<input type="radio" id="student" name="role" value="0" checked>
 							<label for="student">Student</label>
 							<input type="radio" id="admin" name="role" value="1">
@@ -79,7 +87,7 @@
                         </div>
                         <div class="form-group">
                             <label>Status</label>
-                            @if($status == '0')
+                            @if($user->status == '0')
                             <input type="radio" id="active" name="status" value="0" checked>
 							<label for="active">Active</label>
 							<input type="radio" id="inactive" name="status" value="1">
@@ -94,7 +102,8 @@
                         </div>
                         <input type="submit" name="editbtn" class="btn btn-primary" value="Submit">
                         <a href="/us" class="btn btn-default">Cancel</a>
-                        <a href="/us{{$id}}" class="btn btn-default">Delete</a>
+                        <a href="/us{{$user->id}}" class="btn btn-default">Delete</a>
 	        </form>
+	        @endisset
     </body>
 </html>

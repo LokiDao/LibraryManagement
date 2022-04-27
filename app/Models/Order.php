@@ -13,12 +13,12 @@ class Order extends Model
     	return $this->belongsTo(User::class);
     }
     
-    public function orderDetails() {
+    public function bookOrders() {
     	return $this->hasMany(OrderDetails::class);
     }
     
-    public function order() {
-    	return $this->belongsToMany(Order::class);
+    public function books() {
+    	return $this->belongsToMany(Book::class);
     }
 /*    
     public function getAll($orderBy, $orderType, $pagination) {

@@ -15,18 +15,20 @@ class UserController extends Controller
     	if(!isset($users)) return view('users', ['msg' => 'There is no data found.']);
     	return view('users', ['users' => $users]);
     }
+    
+    public function search(Request $request) {
+    	$key 	= $request->key;
+    	$users = User::where('email', 'like', '%' . $key . '%')
+    					->orWhere('name', 'like', '%' . $key . '%')
+    					->get();
+    	if(!isset($users)) return view('users', ['msg' => 'There is no data found.']);
+    	return view('users', ['users' => $users]);
+    }
 	
     public function show(Request $request, $id) {
     	$user = User::findOrFail($id);
-    	if(!isset($user)) return view('users', ['msg' => 'This is is not existed.']);
-    	return view('edituser', [
-    			'id' 	=> $user->id, 
-    			'email' => $user->email,
-    			'name' 	=> $user->name,
-    			'password' => $user->password,
-    			'role'	=> $user->role,
-    			'status'=> $user->status
-    	]);
+    	if(!isset($user)) return view('users', ['msg' =>  'User ' . $id . ' is not existed.']);
+    	return view('edituser', ['user' => $user]);
     }
     
     public function add(Request $request) {
@@ -42,7 +44,7 @@ class UserController extends Controller
     
     public function edit(Request $request, $id) {
     	$user = User::find($id);
-    	if(!isset($user)) return view('users', ['msg' => 'This is is not existed.']);
+    	if(!isset($user)) return view('users', ['msg' => 'User ' . $id . ' is not existed.']);
     	$user->email 	= $request->email;
     	$user->name 	= $request->name;
     	$user->password = $request->password;
@@ -54,25 +56,20 @@ class UserController extends Controller
     
     public function delete(Request $request, $id) {
     	$user = User::find($id);
-    	if(!isset($user)) return view('users', ['msg' => 'This is is not existed.']);
+    	if(!isset($user)) return view('users', ['msg' =>  'User ' . $id . ' is not existed.']);
     	$user->delete();
     	return $this->showAll();
     }
     
-    public function orders(Request $request, $user_id) {
+    public function orders($user_id) {
     	$user 	= User::find($user_id);
-    	$orders 	= $user->order();
+    	$orders = $user->order();
     	return $orders;
     }
     
-    public function books(Request $request, $user_id) {
+    public function books($user_id) {
     	$user 	= User::find($user_id);
-    	$orders 	= $user->order();
-    	$books;
-    	$i = 0;
-    	foreach ($orders as $order) {
-    		$books[$i] = $order;
-    	}
+    	$books 	= $user->book();
     	return $books;
     }
 }

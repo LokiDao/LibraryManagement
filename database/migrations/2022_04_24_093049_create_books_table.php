@@ -19,7 +19,6 @@ return new class extends Migration
             $table->timestamps();
             $table->string('code', 10)->unique();
             $table->string('name', 100);
-            $table->unsignedInteger('quantity')->default('1');
             $table->boolean('status')->default('0');
         });
     }

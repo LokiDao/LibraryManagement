@@ -20,7 +20,6 @@ class BookSeeder extends Seeder
 	        DB::table('books')->insert([
 	        	'code' => Str::random(6),
 	        	'name' => Str::random(20),
-	        	'quantity' => rand(1, 20),
 	        ]);
     	}
     }

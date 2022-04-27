@@ -9,16 +9,16 @@ class Book extends Model
 {
     use HasFactory;
     
-    public function orderDetails() {
-    	return $this->belongsTo(OrderDetails::class);
+    public function book_orders() {
+    	return $this->belongsTo(BookOrder::class);
     }
     
-    public function order() {
-    	return $this->belongsToMany(Order::class);
+    public function orders() {
+    	return $this->belongsTo(Order::class);
     }
     
-    public function user() {
-    	return $this->belongsToMany(User::class);
+    public function users() {
+    	return $this->belongsTo(User::class);
     }
 /*    
     function getAll($orderBy, $orderType, $pagination) {
