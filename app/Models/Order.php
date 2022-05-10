@@ -14,7 +14,7 @@ class Order extends Model
     }
     
     public function bookOrders() {
-    	return $this->hasMany(OrderDetails::class);
+    	return $this->hasMany(BookOrder::class);
     }
     
     public function books() {

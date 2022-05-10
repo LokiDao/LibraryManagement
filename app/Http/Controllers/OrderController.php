@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\User;
+use App\Models\Book;
 
 class OrderController extends Controller
 {
@@ -11,6 +13,12 @@ class OrderController extends Controller
     	$orders = Order::all();
     	if(!isset($orders)) return view('orders', ['msg' => 'There is no data found.']);
     	return view('orders', ['orders' => $orders]);
+    }
+    
+    public function init() {
+    	$users = User::all();
+    	$books = Book::all();
+    	return view('addorder', ['users' => $users, 'books' => $books]);
     }
     
     public function search(Request $request) {
@@ -25,8 +33,10 @@ class OrderController extends Controller
 	
     public function show(Request $request, $id) {
     	$order = Order::findOrFail($id);
+    	$users = User::all();
+    	$books = Book::all();
     	if(!isset($order)) return view('order', ['msg' =>  'Order ' . $id . ' is not existed.']);
-    	return view('editorder', ['order' => $order]);
+    	return view('editorder', ['order' => $order, 'users' => $users, 'books' => $books]);
     }
     
     public function add(Request $request) {

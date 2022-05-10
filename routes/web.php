@@ -62,7 +62,7 @@ Route::get('/os', [OrderController::class, 'showAll']);
 
 Route::get('/of', [OrderController::class, 'search']);
 
-Route::get('/o', function () { return view('addorder'); });
+Route::get('/o', [OrderController::class, 'init']);
 
 Route::post('/o', [OrderController::class, 'add']);
 
