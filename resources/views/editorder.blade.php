@@ -183,10 +183,6 @@
               @csrf
                 <div class="card-body">
                   <div class="form-group">
-                  <div class="form-group">
-                            <label>ID</label>
-                            <input name="id" class="form-control" required value="{{$order->id}}" disabled>
-                        </div>
                     <label for="code">Code</label>
                     <input type="text" class="form-control" id="code" name="code" placeholder="Order's Code" required value="{{$order->code}}">
                   </div>

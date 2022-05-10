@@ -165,10 +165,6 @@
               <form name="edit-user-form" method="post" action="/u{{$user->id}}">
               @csrf
                 <div class="card-body">
-                <div class="form-group">
-                            <label>ID</label>
-                            <input name="id" class="form-control" required value="{{$user->id}}" disabled>
-                        </div>
                   <div class="form-group">
                             <label>Email</label>
                             <input name="email" class="form-control" required value="{{$user->email}}">

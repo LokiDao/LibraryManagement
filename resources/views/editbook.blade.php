@@ -166,10 +166,6 @@
               <form name="edit-book-form" method="post" action="/b{{$book->id}}">
               @csrf
                 <div class="card-body">
-                <div class="form-group">
-                            <label>ID</label>
-                            <input name="id" class="form-control" required value="{{$book->id}}" disabled>
-                        </div>
                         <div class="form-group">
                             <label>Code</label>
                             <input name="code" class="form-control" required value="{{$book->code}}">
